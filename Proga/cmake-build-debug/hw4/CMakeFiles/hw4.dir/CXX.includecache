@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/CLion 2021.2.1/polytech/hw4/main.cpp
+iostream
+-
+cmath
+-
+fstream
+-
+vector
+-
+string
+-
+
