@@ -1,0 +1,1 @@
+add_executable(hw3 main.cpp)
