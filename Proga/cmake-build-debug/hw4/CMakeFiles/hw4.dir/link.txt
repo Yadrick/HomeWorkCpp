@@ -1,3 +1,0 @@
-"E:\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\hw4.dir/objects.a
-E:\MinGW\mingw64\bin\ar.exe cr CMakeFiles\hw4.dir/objects.a @CMakeFiles\hw4.dir\objects1.rsp
-E:\MinGW\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\hw4.dir/objects.a -Wl,--no-whole-archive -o hw4.exe -Wl,--out-implib,libhw4.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\hw4.dir\linklibs.rsp
