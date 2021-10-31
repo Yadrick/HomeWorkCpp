@@ -1,2 +1,2 @@
 # PROGA
-# Variant 
+# Variant 2
