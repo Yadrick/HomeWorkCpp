@@ -1,1 +1,0 @@
-add_executable(hw2 main.cpp)
