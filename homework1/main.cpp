@@ -24,7 +24,7 @@ int main()
         while(fin>>x>>y)
         {
             double cos = (x*x_0 + y*y_0)/(sqrt(x*x+y*y)*sqrt(x_0*x_0+y_0*y_0)); // cos угла между напр. вект. и следующими
-            cos =round(cos * 1000.0) / 1000.0;
+
             if(cos < cosR && ((y_0*x) >= (y*x_0) ))
             {
                 cosR = cos;
