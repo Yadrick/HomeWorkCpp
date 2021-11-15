@@ -41,6 +41,6 @@ int main()
         cout << "Leftmost:: "<< xL <<" " << yL<<endl;
         cout << "Rightmost: " << xR << " " << yR << endl;
 //     }
-    fin.close();
-    return 0;
+//     fin.close();
+//     return 0;
 }
