@@ -23,7 +23,7 @@ int main()
         double cosR=1,cosL=1;                     // начальные косинусы при 0 градусах
         while(fin>>x>>y)
         {
-            double cos = (x*x_0 + y*y_0)/(sqrt(x*x+y*y)*sqrt(x_0*x_0+y_0*y_0)); // cos угла между напр. вект. и следующими
+            double cos = double((x*x_0 + y*y_0)) /double((sqrt(x*x+y*y)*sqrt(x_0*x_0+y_0*y_0))) ; // cos угла между напр. вект. и следующими
             cos =round(cos * 1000.0) / 1000.0;
             if(cos < cosR && ((y_0*x) >= (y*x_0) ))
             {
