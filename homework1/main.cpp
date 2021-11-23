@@ -38,7 +38,7 @@ int main()
                 yL = y;
             }
         }
-        cout << "Leftmost:: "<< xL <<" " << yL <<endl;
+        cout << "Leftmost: "<< xL <<" " << yL <<endl;
         cout << "Rightmost: " << xR << " " << yR << endl;
     }
     fin.close();
