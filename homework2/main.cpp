@@ -70,7 +70,7 @@ int main(){
     int i = 0;
 
     for (int i=0; i<X_obs.size(); i++){
-        if (dvizh(h,alpha,X_obs[i],g,v0) <= Y_obs[i]){
+        if (dvizh(h,alpha,X_obs[i],g,v0) < Y_obs[i]){
             cout << i<<endl;
             pp=false;
             break;
