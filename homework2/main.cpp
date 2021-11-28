@@ -104,7 +104,7 @@ vector<double> fisrtCollision(double h, double vx, double vy, vector < double > 
         }
     }
 
-
+}
 int main() {
     
         vector<double> points = readFile();
