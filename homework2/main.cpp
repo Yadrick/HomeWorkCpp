@@ -62,10 +62,7 @@ double newAlpha(double h, double x, double y, double v0,double g = 10) {
     double alpha = asin(((y - h) / 2 + g * x * x / (2 * v0 * v0)) / sqrt(x * x / 4 + (y - h) * (y - h) / 4)) / 4;
     return alpha;
 }
-void nCollision(double h, double vx, double vy, vector < double > X_barrier, vector<double> Y_barrier, bool isRight, int i,double lmax, double g = 10) {
-    /* второе столкновение */
-    
-}
+
 vector<double> fisrtCollision(double h, double vx, double vy, vector < double > X_barrier, vector<double> Y_barrier,double alpha, double g = 10 ) {
     bool pp = false;
     bool rightway = true;
