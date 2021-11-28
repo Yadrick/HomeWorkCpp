@@ -1,135 +1,162 @@
-#define _USE_MATH_DEFINES
 #include <iostream>
 #include <vector>
 #include <cmath>
 #include <string>
 #include <fstream>
 using namespace std;
-void printArray(vector<double>& arr) {
-	for (int i = 0; i < arr.size(); i++) {
-		cout << arr[i] << endl;
-	}
+void printArray(vector < double > &arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        cout << arr[i] << " ";
+    }
 }
-double recurs(vector < double > X, int n) {
-	if (n == 0) {
-		return 0;
-	}
-	else {
-		return 2 * X[n - 1] - recurs(X, n - 1);
-	}
+//ф-я чтения файла
+vector<double> readFile() {
+    string line;
+    vector<double> points;
+    ifstream file("in.txt");
+    if (file.is_open()) {        string str;
+        while (!file.eof()) {
+            file >> str;
+            points.push_back(stod(str));
+        }
+    }
+    else {
+        cout << "Open Error";
+    }
+    file.close();
+    return points;
 }
-double y(double x, double h, double alpha, double g, double vx, double vy, vector<double>& X, int n) {
-	double f = h + pow(-1, n) * (x - recurs(X, n)) * vy / vx - g / (2 * pow(vx, 2)) * pow(x - recurs(X, n), 2);
-	return f;
+vector<double> divider(vector<double> &arr, bool isX) {
+    vector<double> inarr;
+    if (isX) {
+        for (int i = 0; i < arr.size(); i+=2) {
+           inarr.push_back(arr[i]);
+        }
+    }
+    else {
+        for (int i = 1; i < arr.size(); i+=2) {
+            inarr.push_back(arr[i]);
+        }
+    }
+    return inarr;
 }
-vector<double> parabolicSolver(double vx, double vy, double g, double h, double n, vector<double>& X) {
-	double a = -g / (2 * pow(vx, 2));
-	double b = pow((-1), n);
-	double c = h;
-	double t1, t2;
-	t1 = -b + sqrt(b * b - 4 * a * c) / (2 * a);
-	t2 = -b - sqrt(b * b - 4 * a * c) / (2 * a);
-	double x1, x2;
-	x1 = t1 + recurs(X, n);
-	x2 = t2 + recurs(X, n);
-	return { x1,x2 };
+//уравнение движения МТ
+double move(double h, double x, double vx, double vy,double g = 10) {
+    double y;
+    y = h + vy/vx * x - pow(x, 2) * g / (2 * pow(vx, 2));
+    return y;
 }
-int main(int argc, char* argv)
-{
-	if (argc == 2) {
-		ifstream file(argv);
+double Hmax(double h, double vy, double g = 10) {
+    return h + (vy * vy) / (2 * g);
 
-		vector <double> X;
-		vector <double> Y;
-		double h;
-		file >> h;
-		double vx;
-		double vy;
-		file >> vx >> vy;
-		double alpha = atan(vy / vx);
-		bool way = true;
-		int n_p = 0, n = 0;
-		double x, yh;
-		while (file >> x >> yh) {
-			X.push_back(x);
-			Y.push_back(yh);
-		}
-		vector <double> hY;
-		vector <double> Xsaved;
-		double y0 = y(X[0], h, alpha, 9.81, vx, vy, X, n);
-		if (y0 < Y[0]) {
-			cout << 0;
-			return 0;
-		}
-		int isHigh = 0;
+}
+double Lmax(double h, double vx, double vy, double g = 10) {
+    //return 2*vx * sqrt(vy * vy + 2 * g * h) / g;
+    return 2 * vx * vy / g;
+}
+double Lmaxh(double h, double vx, double vy, double g = 10) {
+    return 2*vx * sqrt(vy * vy + 2 * g * h) / g;
+    
+}
+double newAlpha(double h, double x, double y, double v0,double g = 10) {
+    double alpha = asin(((y - h) / 2 + g * x * x / (2 * v0 * v0)) / sqrt(x * x / 4 + (y - h) * (y - h) / 4)) / 4;
+    return alpha;
+}
+void nCollision(double h, double vx, double vy, vector < double > X_barrier, vector<double> Y_barrier, bool isRight, int i,double lmax, double g = 10) {
+    /* второе столкновение */
+    
+}
+vector<double> fisrtCollision(double h, double vx, double vy, vector < double > X_barrier, vector<double> Y_barrier,double alpha, double g = 10 ) {
+    bool pp = false;
+    bool rightway = true;
+    for (int i = 0; i < X_barrier.size(); i++) {
+        bool perelet = (move(h, X_barrier[i], vx, vy) <= Y_barrier[i]);
+        if (perelet) {
+            /* Когда совпадают все идеально, точка возвращается в самое начало */
+            if (move(h, X_barrier[i], vx, vy) == Hmax(h, vy) && X_barrier[i] == Lmax(h, vx, vy) / 2) {
+                cout << "0" << endl;
+            }
+            /* нетривиальные случаи */
+            pp = false;
+            rightway = false;
+            double newvx = vx / cos(alpha) * cos(newAlpha(h, X_barrier[i], move(h, X_barrier[i], vx, vy), vx/cos(alpha)));
+            double newvy = vy / sin(alpha) * sin(newAlpha(h, X_barrier[i], move(h, X_barrier[i], vx, vy), vx / cos(alpha)));
+            nCollision(h, newvx, newvy, X_barrier, Y_barrier, rightway,i, Lmax(0,vx,vy));
+            cout << "Is collapsed" << endl;
+            return { newvx, newvy, double(i) };
+            
+        }
+        else {
+            pp = true;
+            cout << "is above" << endl;
+            
+        }
+    }
+    if (pp) {
+        /*  все перелетел */
+        if (Lmaxh(h, vx, vy) > X_barrier[X_barrier.size() - 1]) {
+            cout << X_barrier.size();
+            return { 0 };
+        }
+        /* перелетел без соударении но не все */
+        else {
+            for (int i = 0; i < X_barrier.size(); i++) {
+                if (Lmaxh(h, vx, vy) <= X_barrier[i]) {
+                    cout << i << endl;
+                    return { 0 };
+                    break;
+                }
+            }
+        }
+    }
 
-		for (int i = 0; i < X.size(); i++) {
+}
+int main(int argc, char* argv = "in.txt") {
+    
+    if (argc == 2) {
+        vector<double> points = readFile();
+        double h0 = points[0];
+        double vx = points[1];
+        double vy = points[2];
+        points.erase(points.begin());
+        points.erase(points.begin());
+        points.erase(points.begin());
+        vector<double> X_barrier = divider(points, true);
+        vector<double> Y_barrier = divider(points, false);
+        double alpha = atan(vy / vx);
+        double hmax = Hmax(h0, vy);
+        double lmax = Lmax(h0, vx, vy);
+        
+        /* первое столкновение */
 
-			y0 = y(X[i], h, alpha, 9.81, vx, vy, X, n);
-			hY.push_back(y0);
-			if (y0 > Y[i]) {
-				isHigh += 1;
-			}
-		}
-		// 1 1 0 1
-		if (isHigh == X.size()) {
-			cout << "All is high";
-			return 0;
-		}
-		// first collision
-		for (int i = 0; i < X.size(); i++) {
-			y0 = y(X[i], h, alpha, 9.81, vx, vy, X, n);
-			if (y0 < Y[i]) {
-				n_p = i;
-				way = false;
-				n = 1;
+        vector<double> items = fisrtCollision(h0, vx,vy,X_barrier,Y_barrier,alpha);
+        double newvx = items[0];
+        double newvy = items[1];
+        int i_c = items[2];
+        bool isRight = false;
+        /* n - е столкновение  */
 
-				Xsaved.push_back(X[i]);
-				break;
-			}
-		}
+        if (X_barrier[i_c] < lmax / 2) {
+            /* полетит наверх */
+            for (int j = i_c - 1; j > -1; j--) {
+                if (move(move(h0, X_barrier[i_c], vx, vy), X_barrier[j], newvx, newvy) <= Y_barrier[j]) {
+                    isRight = true;
+                    cout << "Is collaped x2" << endl;
+                }
+                else {
+                    cout << "is above x2" << endl;
+                }
+            }
 
-		while (true) {
-			if (!way) {
-				for (int i = n_p - 1; i >= 0; i--) {
-					y0 = y(X[i], h, alpha, 9.81, vx, vy, Xsaved, n);
-					if (y0 < Y[i]) {
-						n_p = i;
-						way = true;
-						n++;
-						Xsaved.push_back(X[i]);
-						break;
-					}
-				}
-				double y1 = y0;
-				if (y1 < 0) break;
-			}
-			if (way) {
-				for (int i = n_p + 1; i < X.size(); i++) {
-					y0 = y(X[i], h, alpha, 9.81, vx, vy, Xsaved, n);
-					if (y0 < Y[i]) {
-						n_p = i;
-						way = false;
-						n++;
-						Xsaved.push_back(X[i]);
-						break;
-					}
-				}
-				double y1 = y0;
-				if (y1 < 0) break;
-			}
-		}
+        }
+        else {
+            /* полетит вниз */
+        }
+    }
+    else {
+        cout << "There is no/a lot of arguments";
+    }
+    
 
-		if (way) {
-			cout << n_p + 1;
-		}
-		else if (!way) {
-			cout << n_p;
-		}
-	}
-	else {
-		cout << "Wrong arguments";
-	}
-	
-	return 0;
+    return 0;
 }
