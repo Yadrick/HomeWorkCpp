@@ -10,7 +10,7 @@ void printArray(vector < double > &arr) {
     }
 }
 //ф-я чтения файла
-vector<double> readFile(char** argv) {
+vector<double> readFile(char** &argv) {
     string line;
     vector<double> points;
     ifstream file(argv);
