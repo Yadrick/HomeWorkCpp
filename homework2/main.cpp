@@ -111,7 +111,7 @@ vector<double> fisrtCollision(double h, double vx, double vy, vector < double > 
     }
 
 }
-int main(int argc, char* argv = "in.txt") {
+int main(int argc, char** argv) {
     
     if (argc == 2) {
         vector<double> points = readFile();
