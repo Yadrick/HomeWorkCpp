@@ -10,10 +10,10 @@ void printArray(vector < double > &arr) {
     }
 }
 //ф-я чтения файла
-vector<double> readFile() {
+vector<double> readFile(char** argv) {
     string line;
     vector<double> points;
-    ifstream file("in.txt");
+    ifstream file(argv);
     if (file.is_open()) {        string str;
         while (!file.eof()) {
             file >> str;
@@ -71,21 +71,21 @@ vector<double> fisrtCollision(double h, double vx, double vy, vector < double > 
         if (perelet) {
             /* Когда совпадают все идеально, точка возвращается в самое начало */
             if (move(h, X_barrier[i], vx, vy) == Hmax(h, vy) && X_barrier[i] == Lmax(h, vx, vy) / 2) {
-                cout << "0" << endl;
+                cout << 0 << endl;
             }
             /* нетривиальные случаи */
             pp = false;
             rightway = false;
             double newvx = vx / cos(alpha) * cos(newAlpha(h, X_barrier[i], move(h, X_barrier[i], vx, vy), vx/cos(alpha)));
             double newvy = vy / sin(alpha) * sin(newAlpha(h, X_barrier[i], move(h, X_barrier[i], vx, vy), vx / cos(alpha)));
-            nCollision(h, newvx, newvy, X_barrier, Y_barrier, rightway,i, Lmax(0,vx,vy));
-            cout << "Is collapsed" << endl;
+            
+           
             return { newvx, newvy, double(i) };
             
         }
         else {
             pp = true;
-            cout << "is above" << endl;
+
             
         }
     }
@@ -111,7 +111,7 @@ vector<double> fisrtCollision(double h, double vx, double vy, vector < double > 
 int main(int argc, char** argv) {
     
     if (argc == 2) {
-        vector<double> points = readFile();
+        vector<double> points = readFile(argv);
         double h0 = points[0];
         double vx = points[1];
         double vy = points[2];
@@ -138,10 +138,10 @@ int main(int argc, char** argv) {
             for (int j = i_c - 1; j > -1; j--) {
                 if (move(move(h0, X_barrier[i_c], vx, vy), X_barrier[j], newvx, newvy) <= Y_barrier[j]) {
                     isRight = true;
-                    cout << "Is collaped x2" << endl;
+                    
                 }
                 else {
-                    cout << "is above x2" << endl;
+                   
                 }
             }
 
@@ -151,7 +151,7 @@ int main(int argc, char** argv) {
         }
     }
     else {
-        cout << "There is no/a lot of arguments";
+        
     }
     
 
