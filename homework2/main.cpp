@@ -103,7 +103,7 @@ vector<double> fisrtCollision(double h, double vx, double vy, vector < double > 
             }
         }
     }
-return 0;
+return {0};
 }
 int main() {
     
