@@ -69,7 +69,7 @@ for (int i=0; i <= X.size()-1;i++)
 {
     if ((XX >= X[i]) && (XX <= X[i+1]))
     {
-        site = i+1;
+        site = i;
         break;
     }
 }
