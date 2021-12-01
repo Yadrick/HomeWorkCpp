@@ -8,20 +8,18 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y, check = 0,tmp;
+    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
     int site = 0;
-    int n = 0;
+
     vector<double> X;
     vector<double> Y;
 
-    //string path = "in.txt";
-    ifstream fin;
-    fin.open(argv[1]);
+    ifstream fin(argv[1]);
 
     if (fin.is_open()) {
 
         fin >> y0 >> vx >> vy;
-        double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
+//        double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
         while (fin >> x >> y)
         {
@@ -41,12 +39,12 @@ int main(int argc, char** argv)
     }
     fin.close();
 
-    int napravl = 1;
+    int direction = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
     double A_x = vx, A_y = vy, B_x = x0, B_y = y0;
 
-    for (int i = 0; (i >= 0) && (i <= X.size()-1); i = i + napravl)
+    for (int i = 0; (i >= 0) && (i <= X.size()-1); i = i + direction)
     {
     // x = x0+vx*t
         t_col = (X[i] - B_x)/A_x;
@@ -56,7 +54,7 @@ int main(int argc, char** argv)
             {
                 B_x = 2 * A_x * t_col + B_x;
                 A_x = -A_x;
-                napravl = (-1) * napravl;
+                direction = (-1) * direction;
             }
         }
         else
