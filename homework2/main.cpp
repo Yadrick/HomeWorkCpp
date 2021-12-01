@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     vector<double> X;
     vector<double> Y;
 
-    string path = "in.txt";
+    string path = argv[1};
     ifstream fin;
     fin.open(path);
 
