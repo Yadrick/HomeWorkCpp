@@ -8,53 +8,51 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y, check, tmp;
+    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
     int site = 0;
     int n = 0;
     vector<double> X;
     vector<double> Y;
 
-    //string path = "in.txt";
+    string path = "in.txt";
+//    ifstream fin;
+//    fin.open(path);
+//    if (fin.is_open()) {
+//        fin >> y0;
+//        fin >> vx;
+//        fin >> vy;
+//        double v0 = sqrt(vx * vx + vy * vy);
+//        // 0 = y0 + vy*t - (gt^2)/2; (gt^2)/2 - vy*t-y0
+//        double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
+//
+//        while ((!fin.eof()) && (check <=vx*t))
+//        {
+//            if (fin >> check >> tmp) {
+//                n++;
+//            }
+//        }
+//        cout << n << endl;
+//    }
+//    fin.close();
+
     ifstream fin;
-    fin.open(argv[1]);
+    fin.open(path);
     if (fin.is_open()) {
-        fin >> y0;
-        fin >> vx;
-        fin >> vy;
-        double v0 = sqrt(vx * vx + vy * vy);
-        // 0 = y0 + vy*t - (gt^2)/2; (gt^2)/2 - vy*t-y0
-        double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
+        fin >> y0 >> vx >> vy;
 
-        while (!fin.eof()) {
-            fin >> x >> y;
-            X.push_back(x);
-            Y.push_back(y);
-        }
-        while (!fin.eof() && (check <=vx*t))
-        {
-            if (fin >> check >> tmp) {
-                n++;
-            }
-        }
-    }
-
-    ifstream fin2;
-    fin2.open(argv[1]);
-    if (fin2.is_open()) {
-        fin2 >> y0;
-        fin2 >> vx;
-        fin2 >> vy;
         int i = 0;
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
-        while ((!fin2.eof()) && (X[i-1] <= t*vx) && i<=n-1)
+
+        while (!fin.eof())
         {
-            fin2 >> x >> y;
+            fin >> x >> y;
             X.push_back(x);
             Y.push_back(y);
             i++;
         }
+
     }
-    fin2.close();
+    fin.close();
 
 
     int napravl = 1;
@@ -98,7 +96,7 @@ if(XX < X[0])
     site = 0;
 }
 
-fin.close();
+
 X.clear();
 X.shrink_to_fit();
     cout << site << endl;
