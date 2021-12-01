@@ -14,9 +14,9 @@ int main(int argc, char** argv)
     vector<double> X;
     vector<double> Y;
 
-   // string path = argv[1};
+    string path = "in.txt";
     ifstream fin;
-    fin.open(argv[1]);
+    fin.open(path);
 
     if (fin.is_open()) {
 
@@ -44,16 +44,18 @@ int main(int argc, char** argv)
     int napravl = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
+    double A_x = vx, A_y = vy, B_x = x0, B_y = y0;
+
     for (int i = 0; (i >= 0) && (i <= X.size()-1); i = i + napravl)
     {
     // x = x0+vx*t
-        t_col = (X[i] - x0)/vx;
+        t_col = (X[i] - B_x)/A_x;
         if (t_col <= t)
         {
-            if ((y0 + vy * t_col - g * t_col * t_col / 2 <= Y[i])) //y = y0 + vy*t -gt^2/2
+            if ((B_y + A_y * t_col - g * t_col * t_col / 2 <= Y[i])) //y = y0 + vy*t -gt^2/2
             {
-                x0 = 2 * vx * t_col + x0;
-                vx = -vx;
+                B_x = 2 * A_x * t_col + B_x;
+                A_x = -A_x;
                 napravl = (-1) * napravl;
             }
         }
@@ -63,7 +65,7 @@ int main(int argc, char** argv)
             }
         }
 
-double XX = x0 + vx*t; // поиск конечной координаты
+double XX = B_x + A_x*t; // поиск конечной координаты
 
 for (int i=0; i <= X.size()-2;i++)
 {
@@ -90,5 +92,5 @@ Y.clear();
 X.shrink_to_fit();
 Y.shrink_to_fit();
     cout << site << endl;
-    return 0;
+
 }
