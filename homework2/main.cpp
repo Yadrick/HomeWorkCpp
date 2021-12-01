@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     vector<double> X;
     vector<double> Y;
 
-    string path = "in.txt";
+  //  string path = "in.txt";
 //    ifstream fin;
 //    fin.open(path);
 //    if (fin.is_open()) {
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 //    fin.close();
 
     ifstream fin;
-    fin.open(path);
+    fin.open(argv[1]);
     if (fin.is_open()) {
         fin >> y0 >> vx >> vy;
 
