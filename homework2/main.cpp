@@ -6,16 +6,16 @@
 using namespace std;
 
 
-int main()
+int main(int argc, char** argv)
 {
     double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
     int site = 0;
     vector<double> X;
     vector<double> Y;
 
-    string path = "in.txt";
+//    string path = "in.txt";
     ifstream fin;
-    fin.open(path);
+    fin.open(argv[1]);
     if (fin.is_open())
     {
         fin >> y0;
