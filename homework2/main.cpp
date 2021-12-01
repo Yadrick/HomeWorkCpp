@@ -12,10 +12,10 @@ void print_arr (vector <double> & arr){
 }
 
 //ф-я чтения файла
-vector<double> readFile(argv [1]) {
+vector<double> readFile(argv[1]) {
     string line;
     vector<double> points;
-    ifstream file(arg v);
+    ifstream file(argv[1]);
     if (file.is_open()) {
         string str;
         while (!file.eof()) {
