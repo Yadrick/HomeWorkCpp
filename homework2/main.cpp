@@ -8,13 +8,13 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
+    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y, check = 0,tmp;
     int site = 0;
     int n = 0;
     vector<double> X;
     vector<double> Y;
 
-  //  string path = "in.txt";
+    string path = "in.txt";
 //    ifstream fin;
 //    fin.open(path);
 //    if (fin.is_open()) {
@@ -36,21 +36,27 @@ int main(int argc, char** argv)
 //    fin.close();
 
     ifstream fin;
-    fin.open(argv[1]);
+    fin.open(path);
     if (fin.is_open()) {
         fin >> y0 >> vx >> vy;
 
-        int i = 0;
+
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
-        while (!fin.eof())
+//        while ((!fin.eof()) && (check <= vx*t)) {
+//            if (fin >> check >> tmp) {
+//                n++;
+//            }
+//        }
+//        cout << n <<endl;
+            while (!fin.eof())
         {
             fin >> x >> y;
             X.push_back(x);
             Y.push_back(y);
-            i++;
         }
-
+    X.pop_back();
+    Y.pop_back();
     }
     fin.close();
 
