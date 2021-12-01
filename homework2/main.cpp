@@ -58,8 +58,10 @@ int main(int argc, char** argv)
             for (int i = 0; i < X.size(); i++ )
             {
                 if ((X[i] == X[i+1]) && (Y[i] == Y[i+1]))
-                X.pop_back();
-                Y.pop_back();
+                {
+                    X.pop_back();
+                    Y.pop_back();
+                }
             }
 
         }
