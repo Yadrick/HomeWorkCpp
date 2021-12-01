@@ -14,18 +14,17 @@ int main(int argc, char** argv)
     vector<double> X;
     vector<double> Y;
 
-    //string path = "in.txt";
+    string path = "in.txt";
     ifstream fin;
-    fin.open(argv[1]);
+    fin.open(path);
 
     if (fin.is_open()) {
 
         fin >> y0 >> vx >> vy;
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
-        while (!fin.eof())
+        while (fin >> x >> y)
         {
-            fin >> x >> y;
             X.push_back(x);
             Y.push_back(y);
             // for для того, чтобы избавиться от пробелов в конце in.txt
@@ -41,7 +40,7 @@ int main(int argc, char** argv)
 
     }
     fin.close();
-    
+
     int napravl = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
