@@ -97,19 +97,17 @@ int main(int argc, char** argv) {
     string line;
     vector<double> points;
     ifstream file(argv[1]);
-    if (file.is_open()) {        
+    if (file.is_open()) {
         string str;
         while (!file.eof()) {
             file >> str;
             points.push_back(stod(str));
         }
     }
-    else {
-        cout << "Open Error";
-    }
+
     file.close();
-       
-    
+
+
         double h0 = points[0];
         double vx = points[1];
         double vy = points[2];
@@ -147,11 +145,5 @@ int main(int argc, char** argv) {
         else {
             /* полетит вниз */
         }
+return 0;
     }
-    else {
-
-
-
-
-    return 0;
-}
