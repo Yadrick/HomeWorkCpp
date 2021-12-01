@@ -50,8 +50,8 @@ double dvizh (double h,double alpha, double x,double g, double v0){
     return y;
 }
 
-int main(){
-vector <double> points = readFile();
+int main(int argc, char** argv){
+vector <double> points = readFile(argv[1]);
 double h = (points[0]);
 points.erase(points.begin());
     double vx =points[0];
