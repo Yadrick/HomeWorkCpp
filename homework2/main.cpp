@@ -1,149 +1,83 @@
 #include <iostream>
-#include <vector>
 #include <cmath>
-#include <string>
 #include <fstream>
+#include <string>
+#include <vector>
 using namespace std;
-void printArray(vector < double > &arr) {
-    for (int i = 0; i < arr.size(); i++) {
-        cout << arr[i] << " ";
-    }
-}
 
-vector<double> divider(vector<double> &arr, bool isX) {
-    vector<double> inarr;
-    if (isX) {
-        for (int i = 0; i < arr.size(); i+=2) {
-            inarr.push_back(arr[i]);
+
+int main()
+{
+    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
+    int site = 0;
+    vector<double> X;
+    vector<double> Y;
+
+    string path = "in.txt";
+    ifstream fin;
+    fin.open(path);
+    if (fin.is_open())
+    {
+        fin >> y0;
+        fin >> vx;
+        fin >> vy;
+        double v0 = sqrt(vx*vx+vy*vy);
+        // 0 = y0 + vy*t - (gt^2)/2; (gt^2)/2 - vy*t-y0
+        double t = (vy + sqrt(vy*vy+2*y0*g))/g ;
+
+        while (!fin.eof())
+        {
+            fin>>x>>y;
+            X.push_back(x);
+            Y.push_back(y);
         }
+
     }
-    else {
-        for (int i = 1; i < arr.size(); i+=2) {
-            inarr.push_back(arr[i]);
-        }
-    }
-    return inarr;
-}
-//уравнение движения МТ
-double move(double h, double x, double vx, double vy,double g = 10) {
-    double y;
-    y = h + vy/vx * x - pow(x, 2) * g / (2 * pow(vx, 2));
-    return y;
-}
-double Hmax(double h, double vy, double g = 10) {
-    return h + (vy * vy) / (2 * g);
-
-}
-double Lmax(double h, double vx, double vy, double g = 10) {
-    //return 2*vx * sqrt(vy * vy + 2 * g * h) / g;
-    return 2 * vx * vy / g;
-}
-double Lmaxh(double h, double vx, double vy, double g = 10) {
-    return 2*vx * sqrt(vy * vy + 2 * g * h) / g;
-
-}
-double newAlpha(double h, double x, double y, double v0,double g = 10) {
-    double alpha = asin(((y - h) / 2 + g * x * x / (2 * v0 * v0)) / sqrt(x * x / 4 + (y - h) * (y - h) / 4)) / 4;
-    return alpha;
-}
-
-vector<double> fisrtCollision(double h, double vx, double vy, vector < double > X_barrier, vector<double> Y_barrier,double alpha, double g = 10 ) {
-    bool pp = false;
-    bool rightway = true;
-    for (int i = 0; i < X_barrier.size(); i++) {
-        bool perelet = (move(h, X_barrier[i], vx, vy) <= Y_barrier[i]);
-        if (perelet) {
-            /* Когда совпадают все идеально, точка возвращается в самое начало */
-            if (move(h, X_barrier[i], vx, vy) == Hmax(h, vy) && X_barrier[i] == Lmax(h, vx, vy) / 2) {
-                cout << 0 << endl;
+    int napravl = 1;
+    double t = (vy + sqrt(vy*vy+2*y0*g))/g;
+    double t_col;
+    for (int i = 0; i > 0 && i < X.size()-1; i = i + napravl)
+    {
+    // x = x0+vx*t
+        t_col = (X[i] - x0)/vx;
+        if (t_col < t) {
+            if ((y0 + vy * t - g * t_col * t_col / 2 <= Y[i])) //y = y0 + vy*t -gt^2/2
+            {
+                x0 = 2 * vx * t_col + x0;
+                vx = -vx;
+                napravl = (-1) * napravl;
             }
-            /* нетривиальные случаи */
-            pp = false;
-            rightway = false;
-            double newvx = vx / cos(alpha) * cos(newAlpha(h, X_barrier[i], move(h, X_barrier[i], vx, vy), vx/cos(alpha)));
-            double newvy = vy / sin(alpha) * sin(newAlpha(h, X_barrier[i], move(h, X_barrier[i], vx, vy), vx / cos(alpha)));
-
-
-            return { newvx, newvy, double(i) };
-
-        }
-        else {
-            pp = true;
-
-
-        }
-    }
-    if (pp) {
-        /*  все перелетел */
-        if (Lmaxh(h, vx, vy) > X_barrier[X_barrier.size() - 1]) {
-            cout << X_barrier.size();
-            return { 0 };
-        }
-            /* перелетел без соударении но не все */
-        else {
-            for (int i = 0; i < X_barrier.size(); i++) {
-                if (Lmaxh(h, vx, vy) <= X_barrier[i]) {
-                    cout << i << endl;
-                    return { 0 };
-                    break;
-                }
+        }else
+            {
+                break ;
             }
         }
-    }
+double XX = x0 + vx*t; // поиск конечной координаты
 
+for (int i=0; i < X.size()-2;i++)
+{
+    if ((XX >= X[i]) && XX <= X[i+1])
+    {
+        site = i+1;
+        break;
+    }
 }
-int main(int argc, char** argv) {
 
-    string line;
-    vector<double> points;
-    ifstream file(argv[1]);
-    if (file.is_open()) {
-        string str;
-        while (!file.eof()) {
-            file >> str;
-            points.push_back(stod(str));
-        }
-    }
+if(XX > X[X.size()-1])
+{
+    site = X.size();
+}
 
-    file.close();
+if(XX < X[0])
+{
+    site = 0;
+}
 
 
-        double h0 = points[0];
-        double vx = points[1];
-        double vy = points[2];
-        points.erase(points.begin());
-        points.erase(points.begin());
-        points.erase(points.begin());
-        vector<double> X_barrier = divider(points, true);
-        vector<double> Y_barrier = divider(points, false);
-        double alpha = atan(vy / vx);
-        double hmax = Hmax(h0, vy);
-        double lmax = Lmax(h0, vx, vy);
 
-        /* первое столкновение */
 
-        vector<double> items = fisrtCollision(h0, vx,vy,X_barrier,Y_barrier,alpha);
-        double newvx = items[0];
-        double newvy = items[1];
-        int i_c = items[2];
-        bool isRight = false;
-        /* n - е столкновение  */
-
-        if (X_barrier[i_c] < lmax / 2) {
-            /* полетит наверх */
-            for (int j = i_c - 1; j > -1; j--) {
-                if (move(move(h0, X_barrier[i_c], vx, vy), X_barrier[j], newvx, newvy) <= Y_barrier[j]) {
-                    isRight = true;
-
-                }
-                else {
-
-                }
-            }
-
-        }
-        else {
-            /* полетит вниз */
-        }
-return 0;
-    }
+X.clear();
+X.shrink_to_fit();
+    cout << site << endl;
+    return 0;
+}
