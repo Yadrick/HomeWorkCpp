@@ -8,34 +8,39 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
+    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y, check, tmp;
     int site = 0;
     vector<double> X;
     vector<double> Y;
 
-//    string path = "in.txt";
+    string path = "in.txt";
     ifstream fin;
-    fin.open(argv[1]);
-    if (fin.is_open())
-    {
+    fin.open(path);
+    if (fin.is_open()) {
         fin >> y0;
         fin >> vx;
         fin >> vy;
-        double v0 = sqrt(vx*vx+vy*vy);
+        double v0 = sqrt(vx * vx + vy * vy);
         // 0 = y0 + vy*t - (gt^2)/2; (gt^2)/2 - vy*t-y0
-        double t = (vy + sqrt(vy*vy+2*y0*g))/g ;
+        double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
-        while (!fin.eof())
-        {
-            fin>>x>>y;
+        while (!fin.eof()) {
+            fin >> x >> y;
             X.push_back(x);
             Y.push_back(y);
         }
-
+        int n = 0;
+        while (!fin.eof() && (check <=vx*t))
+        {
+            if (fin >> check >> tmp) {
+                n++;
+            }
+        }
     }
+
     int napravl = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
-    double t_col;
+    double t_col = 0;
     for (int i = 0; (i >= 0) && (i < X.size()-1); i = i + napravl)
     {
     // x = x0+vx*t
@@ -73,7 +78,7 @@ if(XX < X[0])
     site = 0;
 }
 
-
+fin.close();
 X.clear();
 X.shrink_to_fit();
     cout << site << endl;
