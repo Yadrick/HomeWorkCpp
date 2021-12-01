@@ -14,9 +14,9 @@ int main(int argc, char** argv)
     vector<double> X;
     vector<double> Y;
 
-   // string path = "in.txt";
+    //string path = "in.txt";
 //    ifstream fin;
-//    fin.open(path);
+//    fin.open(argv[1]);
 //    if (fin.is_open()) {
 //        fin >> y0;
 //        fin >> vx;
@@ -57,12 +57,12 @@ int main(int argc, char** argv)
 
             for (int i = 0; i < X.size(); i++ )
             {
-                if (X[i] == X[i+1])
+                if ((X[i] == X[i+1]) && (Y[i] == Y[i+1]))
                 X.pop_back();
+                Y.pop_back();
             }
-            
+
         }
-cout << X.size() << endl;
 
 
     }
