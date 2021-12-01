@@ -36,11 +36,11 @@ int main(int argc, char** argv)
     int napravl = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
-    for (int i = 0; i > 0 && i < X.size()-1; i = i + napravl)
+    for (int i = 0; (i >= 0) && (i < X.size()-1); i = i + napravl)
     {
     // x = x0+vx*t
         t_col = (X[i] - x0)/vx;
-        if (t_col < t) {
+        if (t_col <= t) {
             if ((y0 + vy * t - g * t_col * t_col / 2 <= Y[i])) //y = y0 + vy*t -gt^2/2
             {
                 x0 = 2 * vx * t_col + x0;
@@ -56,7 +56,7 @@ double XX = x0 + vx*t; // поиск конечной координаты
 
 for (int i=0; i < X.size()-2;i++)
 {
-    if ((XX >= X[i]) && XX <= X[i+1])
+    if ((XX >= X[i]) && (XX <= X[i+1]))
     {
         site = i+1;
         break;
@@ -72,8 +72,6 @@ if(XX < X[0])
 {
     site = 0;
 }
-
-
 
 
 X.clear();
