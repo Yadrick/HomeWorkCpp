@@ -10,6 +10,7 @@ int main(int argc, char** argv)
 {
     double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y, check, tmp;
     int site = 0;
+    int n = 0;
     vector<double> X;
     vector<double> Y;
 
@@ -29,7 +30,6 @@ int main(int argc, char** argv)
             X.push_back(x);
             Y.push_back(y);
         }
-        int n = 0;
         while (!fin.eof() && (check <=vx*t))
         {
             if (fin >> check >> tmp) {
@@ -37,6 +37,25 @@ int main(int argc, char** argv)
             }
         }
     }
+
+    ifstream fin2;
+    fin2.open(argv[1]);
+    if (fin2.is_open()) {
+        fin2 >> y0;
+        fin2 >> vx;
+        fin2 >> vy;
+        int i = 0;
+        double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
+        while ((!fin2.eof()) && (X[i-1] <= t*vx) && i<=n-1)
+        {
+            fin2 >> x >> y;
+            X.push_back(x);
+            Y.push_back(y);
+            i++;
+        }
+    }
+    fin2.close();
+
 
     int napravl = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
