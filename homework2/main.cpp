@@ -13,9 +13,9 @@ int main(int argc, char** argv)
     vector<double> X;
     vector<double> Y;
 
- //   string path = "in.txt";
+    string path = "in.txt";
     ifstream fin;
-    fin.open(argv[1]);
+    fin.open(path);
     if (fin.is_open()) {
         fin >> y0;
         fin >> vx;
@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     int napravl = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col = 0;
-    for (int i = 0; (i >= 0) && (i < X.size()-1); i = i + napravl)
+    for (int i = 0; (i >= 0) && (i <= X.size()-1); i = i + napravl)
     {
     // x = x0+vx*t
         t_col = (X[i] - x0)/vx;
@@ -57,9 +57,10 @@ int main(int argc, char** argv)
                 break ;
             }
         }
+
 double XX = x0 + vx*t; // поиск конечной координаты
 
-for (int i=0; i < X.size()-2;i++)
+for (int i=0; i <= X.size()-2;i++)
 {
     if ((XX >= X[i]) && (XX <= X[i+1]))
     {
