@@ -11,22 +11,7 @@ void print_arr (vector <double> & arr){
     }
 }
 
-//ф-я чтения файла
-vector<double> readFile(argv[1]) {
-    string line;
-    vector<double> points;
-    ifstream file(argv[1]);
-    if (file.is_open()) {
-        string str;
-        while (!file.eof()) {
-            file >> str;
-            points.push_back(stod(str));
-        }
-        points.pop_back();
-    }
-    file.close();
-    return points;
-}
+
 
 vector<double> divider(vector<double>& arr, string type) {
     int n = arr.size();
@@ -51,7 +36,21 @@ double dvizh (double h,double alpha, double x,double g, double v0){
 }
 
 int main(int argc, char** argv){
-vector <double> points = readFile(argv[1]);
+    
+     string line;
+    vector<double> points;
+    ifstream file(argv[1]);
+    if (file.is_open()) {
+        string str;
+        while (!file.eof()) {
+            file >> str;
+            points.push_back(stod(str));
+        }
+        points.pop_back();
+    }
+    file.close();
+
+
 double h = (points[0]);
 points.erase(points.begin());
     double vx =points[0];
