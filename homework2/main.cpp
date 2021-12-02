@@ -12,20 +12,18 @@ int main(int argc, char** argv)
 
     vector<double> X;
     vector<double> Y;
-    X.push_back(0);
 
     ifstream fin(argv[1]);
 
     if (fin.is_open()) {
 
         fin >> y0 >> vx >> vy;
-        double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
-        int i = 0;
-        while ((fin >> x >> y) && (X[i-1] <= vx*t))
+    //    double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
+
+        while ((fin >> x >> y))
         {
             X.push_back(x);
             Y.push_back(y);
-            i ++;
             // for для того, чтобы избавиться от пробелов в конце in.txt
 //            for (int i = 0; i < X.size(); i++ )
 //            {
@@ -36,7 +34,6 @@ int main(int argc, char** argv)
 //                }
 //            }
         }
-        X.erase(X.begin());
 
     }
     fin.close();
