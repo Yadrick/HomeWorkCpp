@@ -7,11 +7,12 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y, check = 0;
+    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
     int site = 0;
 
     vector<double> X;
     vector<double> Y;
+    X.push_back(0);
 
     ifstream fin("in.txt");
 
@@ -19,12 +20,12 @@ int main(int argc, char** argv)
 
         fin >> y0 >> vx >> vy;
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
-
-        while ((fin >> x >> y) && (check <= vx*t))
+        int i = 0;
+        while ((fin >> x >> y) && (X[i] <= vx*t))
         {
             X.push_back(x);
             Y.push_back(y);
-
+            i ++;
             // for для того, чтобы избавиться от пробелов в конце in.txt
 //            for (int i = 0; i < X.size(); i++ )
 //            {
@@ -35,6 +36,7 @@ int main(int argc, char** argv)
 //                }
 //            }
         }
+        X.erase(X.begin());
 
     }
     fin.close();
