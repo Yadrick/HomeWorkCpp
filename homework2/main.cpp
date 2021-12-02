@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     vector<double> Y;
     X.push_back(0);
 
-    ifstream fin("in.txt");
+    ifstream fin(argv[1]);
 
     if (fin.is_open()) {
 
