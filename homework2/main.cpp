@@ -47,7 +47,7 @@ double Vx = vx;
     for (int i = 0; (i >= 0) && (i <= X.size()-1); i = i + direction)
     {
     // x = x0+vx*t
-        t_col = (X[i] - x0)/vx;
+        t_col = (X[i] - x0)/Vx;
         if (t_col <= t)
         {
             if ((y0 + vy * t_col - g * t_col * t_col / 2 <= Y[i])) //y = y0 + vy*t -gt^2/2
