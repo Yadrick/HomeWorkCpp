@@ -25,14 +25,14 @@ int main(int argc, char** argv)
             X.push_back(x);
             Y.push_back(y);
             // for для того, чтобы избавиться от пробелов в конце in.txt
-//            for (int i = 0; i < X.size(); i++ )
-//            {
-//                if ((X[i] == X[i+1]) && (Y[i] == Y[i+1]))
-//                {
-//                    X.pop_back();
-//                    Y.pop_back();
-//                }
-//            }
+           for (int i = 0; i < X.size(); i++ )
+           {
+               if ((X[i] == X[i+1]) && (Y[i] == Y[i+1]))
+               {
+                   X.pop_back();
+                   Y.pop_back();
+               }
+           }
         }
 
     }
