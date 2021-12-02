@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 
     double XX = x0 + vx*t; // поиск конечной координаты
 
-for (int i=0; (i <= X.size()-2);i++)
+for (int i=0; (i <= X.size());i++)
 {
     if ((XX >= X[i]) && (XX <= X[i+1]))
     {
