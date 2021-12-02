@@ -73,12 +73,12 @@ for (int i=0; (i <= X.size()-1);i++)
     }
 }
 
-if((XX > X[X.size()-1]))
+if((XX >= X[X.size()-1]))
 {
     site = X.size();
 }
 
-if(XX <= X[0])
+if(XX < X[0])
 {
     site = 0;
 }
