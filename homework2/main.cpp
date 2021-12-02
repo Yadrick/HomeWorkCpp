@@ -43,7 +43,7 @@ int main(int argc, char** argv)
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
  
-    for (int i = 0; (i >= 0) && (i <= X.size()-1) && ( i <= Y.size()-1); i = i + direction)
+    for (int i = 0; (i >= 0) && (i <= X.size()-1); i = i + direction)
     {
         // x = x0+vx*t
         t_col = (X[i] - x0)/vx;
@@ -64,7 +64,7 @@ int main(int argc, char** argv)
 
     double XX = x0 + vx*t; // поиск конечной координаты
 
-for (int i=0; (i <= X.size()-1) && (i <= Y.size()-1);i++)
+for (int i=0; (i <= X.size()-1);i++)
 {
     if ((XX >= X[i]) && (XX <= X[i+1]))
     {
@@ -73,7 +73,7 @@ for (int i=0; (i <= X.size()-1) && (i <= Y.size()-1);i++)
     }
 }
 
-if((XX > X[X.size()-1]) && XX > Y[Y.size()-1])
+if((XX > X[X.size()-1]))
 {
     site = X.size();
 }
