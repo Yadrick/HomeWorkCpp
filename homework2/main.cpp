@@ -78,7 +78,7 @@ if((XX > X[X.size()-1]))
     site = X.size();
 }
 
-if(XX < X[0])
+if(XX <= X[0])
 {
     site = 0;
 }
