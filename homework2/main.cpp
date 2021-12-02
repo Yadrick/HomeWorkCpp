@@ -57,7 +57,7 @@ int main(int argc, char** argv)
         }
         else
         {
-            break ;
+            cout << X.size() ;
         }
     }
 
