@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     }
     fin.close();
 
-    X.push_back(xis.back()*2+10.0);
+    X.push_back(X.back()*2+10.0);
     Y.push_back(-1.);
     
     
