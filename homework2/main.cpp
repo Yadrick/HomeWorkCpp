@@ -7,7 +7,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
+    double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y,check;
     int site = 0;
 
     vector<double> X;
@@ -15,15 +15,12 @@ int main(int argc, char** argv)
 
     ifstream fin(argv[1]);
 
-    X.push_back(0.0);
-    Y.push_back(-1.);
-    
     if (fin.is_open()) {
 
         fin >> y0 >> vx >> vy;
-    //    double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
+        double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
-        while ((fin >> x >> y))
+        while ((fin >> x >> y) && (check <= vx*t))
         {
             X.push_back(x);
             Y.push_back(y);
@@ -41,10 +38,6 @@ int main(int argc, char** argv)
     }
     fin.close();
 
-    X.push_back(X.back()*2+10.0);
-    Y.push_back(-1.);
-    
-    
     int direction = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
