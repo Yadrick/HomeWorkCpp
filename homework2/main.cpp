@@ -15,6 +15,9 @@ int main(int argc, char** argv)
 
     ifstream fin(argv[1]);
 
+    X.push_back(0.0);
+    Y.push_back(-1.);
+    
     if (fin.is_open()) {
 
         fin >> y0 >> vx >> vy;
@@ -38,6 +41,10 @@ int main(int argc, char** argv)
     }
     fin.close();
 
+    X.push_back(xis.back()*2+10.0);
+    Y.push_back(-1.);
+    
+    
     int direction = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
