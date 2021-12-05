@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 
         while ((!fin.eof()) && (check<= vx*t))
         {
-            while ((fin >> x >> y) )
+            while ((fin >> x >> y) && (check<= vx*t) )
             {X.push_back(x);
             Y.push_back(y);
             n++;}
