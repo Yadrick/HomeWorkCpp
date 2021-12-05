@@ -99,6 +99,7 @@ X.erase(X.begin());
 
     double XX = x0 + vx*t; // поиск конечной координаты
 
+// ЭТОТ ТЕСТ ДЛЯ 1-го ТЕСТА    
 for (int i=0; (i <= n-2);i++)
 {
     if ((XX >= X[i]) && (XX <= X[i+1]))
@@ -108,9 +109,9 @@ for (int i=0; (i <= n-2);i++)
     }
 }
 // ЭТО УСЛОВИЕ ДЛ ТЕСТА С ЦИФРОЙ 5
-if((XX > X[n-1]))
+if((XX > X[Y.size-1]))
 {
-    site = n;;
+    site = Y.size();
 }
 
 if(XX < X[0])
