@@ -2,7 +2,6 @@
 #include <cmath>
 #include <fstream>
 #include <vector>
-#include <stdio.h>
 using namespace std;
 
 
@@ -22,7 +21,6 @@ int main(int argc, char** argv)
 //    Y.push_back(y);
 //}
     if (fin.is_open()) {
-
         fin >> y0 >> vx >> vy;
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
@@ -37,12 +35,9 @@ int main(int argc, char** argv)
         fin.seekg(0,ios::beg);
         fin >> y0 >> vx >> vy;
 
-        while ((!fin.eof()) && (X[i - 1] <= vx*t) && (i <= n - 1)) {
-            fin >> x;
-            fin >> y;
+        while (fin >> x >> y) {
             X.push_back(x);
             Y.push_back(y);
-            i++;
         }
     }
     fin.close();
