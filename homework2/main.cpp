@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     vector<double> X;
     vector<double> Y;
 
-    ifstream fin(argv[1]);
+    ifstream fin("in.txt");
 
     if (fin.is_open()) {
 
@@ -22,8 +22,9 @@ int main(int argc, char** argv)
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
 
-
-            while ((fin >> x >> y) && (check<= vx*t) )
+        while ((!fin.eof()) && (check<= vx*t))
+        {
+            while ((fin >> x >> y) )
             {X.push_back(x);
             Y.push_back(y);
             n++;}
@@ -36,7 +37,7 @@ int main(int argc, char** argv)
 //                    Y.pop_back();
 //                }
 //            }
-        
+        }
     }
     fin.close();
 
