@@ -22,9 +22,8 @@ int main(int argc, char** argv)
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
 
-        while ((!fin.eof()) && (check<= vx*t))
-        {
-            while ((fin >> x >> y))
+
+            while ((fin >> x >> y) && (check<= vx*t) )
             {X.push_back(x);
             Y.push_back(y);
             n++;}
@@ -37,7 +36,7 @@ int main(int argc, char** argv)
 //                    Y.pop_back();
 //                }
 //            }
-        }
+        
     }
     fin.close();
 
