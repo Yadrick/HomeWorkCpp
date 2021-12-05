@@ -2,7 +2,7 @@
 #include <cmath>
 #include <fstream>
 #include <vector>
-#include <stdio.h>
+
 using namespace std;
 
 
@@ -22,30 +22,17 @@ int main(int argc, char** argv)
         fin >> y0 >> vx >> vy;
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
-
-
         while ((fin >> x >> y) && (check <= vx*t))
         {
             n++;
         }
 
-            // for для того, чтобы избавиться от пробелов в конце in.txt
-//            for (int i = 0; i < X.size(); i++ )
-//            {
-//                if ((X[i] == X[i+1]) && (Y[i] == Y[i+1]))
-//                {
-//                    X.pop_back();
-//                    Y.pop_back();
-//                }
-//            }
-
         int i = 0;
-        x = 0;
-        y = 0;
         X.push_back(0);
         fin.clear();
         fin.seekg(0,ios::beg);
         fin >> y0 >> vx >> vy;
+
         while ((!fin.eof()) && (X[i - 1] <= vx*t) && (i <= n - 1)) {
             fin >> x;
             fin >> y;
@@ -85,7 +72,7 @@ int main(int argc, char** argv)
 
 // ЭТОТ условие ДЛЯ 1-го ТЕСТА
 
-    for (int i=0; (i <= n-2);i++)
+    for (int i=0; (i <= Y.size()-1);i++)
     {
         if ((XX >= X[i]) && (XX <= X[i+1]))
         {
