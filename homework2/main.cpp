@@ -84,9 +84,9 @@ int main(int argc, char** argv)
         }
     }
 // ЭТО УСЛОВИЕ ДЛ ТЕСТА С ЦИФРОЙ 5
-    if((XX > X[n-1]))
+    if((XX > X[n]))
     {
-        site = Y.size();
+        site = n;
     }
 
     if(XX < X[0])
