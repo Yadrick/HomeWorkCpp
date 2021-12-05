@@ -2,27 +2,31 @@
 #include <cmath>
 #include <fstream>
 #include <vector>
-
+#include <stdio.h>
 using namespace std;
 
 
 int main(int argc, char** argv)
 {
     double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
-    double check = 0,a;
+    double distance = 0;
     int site = 0, n = 0;
 
     vector<double> X;
     vector<double> Y;
 
     ifstream fin(argv[1]);
-
+//  fin >> y0 >> vx >> vy;
+//while (fin>>x>>y){
+//    X.push_back(x);
+//    Y.push_back(y);
+//}
     if (fin.is_open()) {
 
         fin >> y0 >> vx >> vy;
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
-        while ((fin >> x >> y) && (check <= vx*t))
+        while ((fin >> x >> y) && (distance <= vx*t))
         {
             n++;
         }
@@ -42,7 +46,6 @@ int main(int argc, char** argv)
         }
     }
     fin.close();
-
     X.erase(X.begin());
 
     int direction = 1;
@@ -72,7 +75,7 @@ int main(int argc, char** argv)
 
 // ЭТОТ условие ДЛЯ 1-го ТЕСТА
 
-    for (int i=0; (i <= Y.size()-1);i++)
+    for (int i=0; (i <= n-1);i++)
     {
         if ((XX >= X[i]) && (XX <= X[i+1]))
         {
@@ -81,9 +84,9 @@ int main(int argc, char** argv)
         }
     }
 // ЭТО УСЛОВИЕ ДЛ ТЕСТА С ЦИФРОЙ 5
-    if((XX > X[Y.size()-1]))
+    if((XX > X[n-1]))
     {
-        site = Y.size();
+        site = n;
     }
 
     if(XX < X[0])
