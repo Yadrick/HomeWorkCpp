@@ -47,7 +47,7 @@ int main(int argc, char** argv)
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
 
-    for (int i = 0; (i >= 0) && (i <= X.size()-1) ; i = i + direction)
+    for (int i = 0; (i >= 0) && (i <= n-1) ; i = i + direction)
     {
         // x = x0+vx*t
         t_col = (X[i] - x0)/vx;
@@ -79,9 +79,9 @@ int main(int argc, char** argv)
         }
     }
 // ЭТО УСЛОВИЕ ДЛ ТЕСТА С ЦИФРОЙ 5
-    if((XX > X[Y.size()-1]))
+    if((XX > X[X.size()-1]))
     {
-        site = Y.size();
+        site = X.size();
     }
 
     if(XX < X[0])
