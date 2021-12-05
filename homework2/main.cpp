@@ -78,7 +78,7 @@ X.erase(X.begin());
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
     double t_col;
 
-    for (int i = 0; (i >= 0) && (i <= X.size()-1) ; i = i + direction)
+    for (int i = 0; (i >= 0) && (i <= Y.size()-1) ; i = i + direction)
     {
         // x = x0+vx*t
         t_col = (X[i] - x0)/vx;
@@ -99,7 +99,7 @@ X.erase(X.begin());
 
     double XX = x0 + vx*t; // поиск конечной координаты
 
-for (int i=0; (i <= X.size()-2);i++)
+for (int i=0; (i <= Y.size()-2);i++)
 {
     if ((XX >= X[i]) && (XX <= X[i+1]))
     {
@@ -110,7 +110,7 @@ for (int i=0; (i <= X.size()-2);i++)
 
 if((XX > X[n-1]))
 {
-    site = X.size();;
+    site = Y.size();;
 }
 
 if(XX < X[0])
