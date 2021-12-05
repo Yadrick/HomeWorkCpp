@@ -25,9 +25,9 @@ int main(int argc, char** argv)
         while ((!fin.eof()) && (check<= vx*t))
         {
             while ((fin >> x >> y))
-            X.push_back(x);
+            {X.push_back(x);
             Y.push_back(y);
-            n++;
+            n++;}
             // for для того, чтобы избавиться от пробелов в конце in.txt
 //            for (int i = 0; i < X.size(); i++ )
 //            {
