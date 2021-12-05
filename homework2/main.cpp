@@ -2,19 +2,20 @@
 #include <cmath>
 #include <fstream>
 #include <vector>
+#include <stdio.h>
 using namespace std;
 
 
 int main(int argc, char** argv)
 {
     double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
-    double check,tmp;
+    double check = 0,a;
     int site = 0, n = 0;
 
     vector<double> X;
     vector<double> Y;
 
-    ifstream fin(argv[1]);
+    ifstream fin("in.txt");
 
     if (fin.is_open()) {
 
@@ -22,12 +23,12 @@ int main(int argc, char** argv)
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
 
-        while ((!fin.eof()) && (check<= vx*t))
+
+        while ((fin >> x >> y) && (check <= vx*t))
         {
-            while ((fin >> x >> y) && (check<= vx*t) )
-            {X.push_back(x);
-            Y.push_back(y);
-            n++;}
+            n++;
+        }
+
             // for для того, чтобы избавиться от пробелов в конце in.txt
 //            for (int i = 0; i < X.size(); i++ )
 //            {
@@ -37,9 +38,25 @@ int main(int argc, char** argv)
 //                    Y.pop_back();
 //                }
 //            }
+
+        int i = 0;
+        x = 0;
+        y = 0;
+        X.push_back(0);
+        fin.clear();
+        fin.seekg(0,ios::beg);
+        fin >> y0 >> vx >> vy;
+        while ((!fin.eof()) && (X[i - 1] <= vx*t) && (i <= n - 1)) {
+            fin >> x;
+            fin >> y;
+            X.push_back(x);
+            Y.push_back(y);
+            i++;
         }
     }
     fin.close();
+
+    X.erase(X.begin());
 
     int direction = 1;
     double t = (vy + sqrt(vy*vy+2*y0*g))/g;
