@@ -108,9 +108,9 @@ for (int i=0; (i <= Y.size()-1);i++)
     }
 }
 
-if((XX > X[Y.size()-1]))
+if((XX > X[n-1]))
 {
-    site = Y.size();;
+    site = n;;
 }
 
 if(XX < X[0])
