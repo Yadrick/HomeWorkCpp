@@ -22,7 +22,7 @@ int main(int argc, char** argv)
   //      double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
 
-      std::ifstream in_prev("in.txt");
+      std::ifstream in_prev(argv[1]);
     if (in_prev.is_open()){
         in_prev >> y0;
         in_prev >> vx;
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
     in_prev.close();
 
 
-    std::ifstream in("in.txt");
+    std::ifstream in(argv[1]);
     if (in.is_open()){
         in >> y0;
         in >> vx;
