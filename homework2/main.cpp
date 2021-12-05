@@ -84,7 +84,7 @@ int main(int argc, char** argv)
         }
     }
 // ЭТО УСЛОВИЕ ДЛ ТЕСТА С ЦИФРОЙ 5
-    if((XX > X[n]))
+    if((XX > X[n-1]))
     {
         site = n-1;
     }
