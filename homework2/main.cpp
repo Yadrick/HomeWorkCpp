@@ -8,21 +8,23 @@ using namespace std;
 int main(int argc, char** argv)
 {
     double y0=0, x0 = 0, vx = 0, vy = 0, g = 9.8, x, y;
+    double check,tmp;
     int site = 0, n = 0;
 
     vector<double> X;
     vector<double> Y;
 
-    ifstream fin(argv[1]);
+    ifstream fin("in.txt");
 
     if (fin.is_open()) {
 
         fin >> y0 >> vx >> vy;
         double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
-    
-        while ((fin >> x >> y))
+
+        while ((!fin.eof()) && (check<= vx*t))
         {
+            while ((fin >> x >> y))
             X.push_back(x);
             Y.push_back(y);
             n++;
@@ -65,6 +67,8 @@ int main(int argc, char** argv)
     double XX = x0 + vx*t; // поиск конечной координаты
 
 // ЭТОТ условие ДЛЯ 1-го ТЕСТА
+cout << n << endl;
+cout << Y.size()<<endl;
     for (int i=0; (i <= n-2);i++)
     {
         if ((XX >= X[i]) && (XX <= X[i+1]))
