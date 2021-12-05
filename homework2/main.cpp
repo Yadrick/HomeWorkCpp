@@ -99,7 +99,7 @@ X.erase(X.begin());
 
     double XX = x0 + vx*t; // поиск конечной координаты
 
-for (int i=0; (i <= Y.size()-2);i++)
+for (int i=0; (i <= Y.size()-1);i++)
 {
     if ((XX >= X[i]) && (XX <= X[i+1]))
     {
