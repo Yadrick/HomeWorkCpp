@@ -68,8 +68,6 @@ int main(int argc, char** argv)
 
     double XX = x0 + vx*t; // поиск конечной координаты
 
-// ЭТОТ условие ДЛЯ 1-го ТЕСТА
-
     for (int i=0; (i <= n-1);i++)
     {
         if ((XX >= X[i]) && (XX <= X[i+1]))
@@ -78,7 +76,7 @@ int main(int argc, char** argv)
             break;
         }
     }
-// ЭТО УСЛОВИЕ ДЛ ТЕСТА С ЦИФРОЙ 5
+
     if((XX > X[X.size()-1]))
     {
         site = X.size();
