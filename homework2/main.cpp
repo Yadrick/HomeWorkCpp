@@ -19,9 +19,8 @@ int main(int argc, char** argv)
         fin >> y0 >> vx >> vy;
         //double t = (vy + sqrt(vy * vy + 2 * y0 * g)) / g;
 
-            while (!fin.eof())
+            while (fin >> x >> y;)
             {
-                fin >> x >> y;
                 X.push_back(x);
                 Y.push_back(y);
             }
